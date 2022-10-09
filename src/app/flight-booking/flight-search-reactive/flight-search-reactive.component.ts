@@ -27,12 +27,12 @@ export class FlightSearchReactiveComponent {
 
   constructor(private flightService: FlightService, private fb: FormBuilder) {
     this.formDesc.push({
-      label: 'Von',
+      label: 'From',
       name: 'from',
     });
 
     this.formDesc.push({
-      label: 'Nach',
+      label: 'To',
       name: 'to',
     });
 

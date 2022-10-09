@@ -5,10 +5,10 @@ import { never } from 'rxjs';
 @Component({
   template: `
     <h1>Flight Edit!</h1>
-    <p>Hier könnte auch der Datensatz mit der Id {{ id }} stehen!</p>
+    <p>The data record with the Id {{ id }} stand!</p>
 
     <div *ngIf="exitWarning.show" class="alert alert-warning">
-      <div>Daten wurden nicht gespeichert! Trotzdem Maske verlassen?</div>
+      <div>Data was not saved! Still leave the mask?</div>
       <div>
         <a
           href="javascript:void(0)"
