@@ -1,8 +1,10 @@
 import { authConfig } from '../auth.config';
 import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from '../auth-code-flow.config';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { GlobalsrvService } from '../service/globalsrv.service';
 
 @Component({
   templateUrl: './home.component.html',
@@ -16,10 +18,17 @@ export class HomeComponent implements OnInit {
   // @ts-expect-error
   login: false;
 
+  private envSelected: string | undefined;
   constructor(
+    private gs: GlobalsrvService,
     private route: ActivatedRoute,
     private oauthService: OAuthService
-  ) {}
+  ) {
+    this.gs.getEnv().subscribe((env) => {
+      this.envSelected = env;
+      console.log(env);
+    });
+  }
 
   get hasValidAccessToken() {
     return this.oauthService.hasValidAccessToken();
@@ -30,6 +39,31 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    //
+    //alert('home:ngOnInit this.envSelected= ' + this.envSelected);
+    console.log('\t HomeComponent: ngOnInit()'+ this.envSelected);
+
+    type ObjectKey = keyof typeof environment;
+    const myVar = this.envSelected as ObjectKey;
+    console.log(environment[myVar]);
+
+    //this.helper_getEnvSection(this.envSelected)
+
+    // this.ls.getEnv().subscribe((lan) => {
+    //   console.log(`\n\t ************* env= ${lan}`);
+    // console.log(environment.authConfig);
+    // console.log(environment['authConfig']);
+    // console.log(environment[lan]);
+
+    //  type ObjectKey = keyof typeof environment;
+    //  const myVar = lan as ObjectKey;
+    //  console.log(environment[myVar]);
+
+    // type ObjectKey22 = keyof typeof environment;
+    // console.log(environment[myVar as ObjectKey22]);
+    // });
+
+    //
     this.route.params.subscribe((p) => {
       this.login = p['login'];
     });
@@ -47,7 +81,15 @@ export class HomeComponent implements OnInit {
 
   async loginImplicit() {
     // Tweak config for implicit flow
-    this.oauthService.configure(authConfig);
+    //environment[env]
+    type ObjectKey = keyof typeof environment;
+    const myVar = this.envSelected as ObjectKey;
+    console.log(environment[myVar]);
+    //console.log(environment[this.envSelected? 'authConfig00' :'authConfig00']);
+
+    const authConfig99 = this.envSelected == '*internal' ? authConfig : (environment[myVar] as AuthConfig);
+    //this.oauthService.configure(authConfig);
+    this.oauthService.configure(authConfig99);
     await this.oauthService.loadDiscoveryDocument();
     sessionStorage.setItem('flow', 'implicit');
 
@@ -57,7 +99,13 @@ export class HomeComponent implements OnInit {
 
   async loginImplicitInPopup() {
     // Tweak config for implicit flow
-    this.oauthService.configure(authConfig);
+    type ObjectKey = keyof typeof environment;
+    const myVar = this.envSelected as ObjectKey;
+    console.log(environment[myVar]);
+    const authConfig99 = this.envSelected == '*internal' ? authConfig : (environment[myVar] as AuthConfig);
+
+    this.oauthService.configure(authConfig99);
+    //this.oauthService.configure(authConfig);
     await this.oauthService.loadDiscoveryDocument();
     sessionStorage.setItem('flow', 'implicit');
 
@@ -69,7 +117,11 @@ export class HomeComponent implements OnInit {
 
   async loginCode() {
     // Tweak config for code flow
-    this.oauthService.configure(authCodeFlowConfig);
+    type ObjectKey = keyof typeof environment;
+    const myVar = this.envSelected as ObjectKey;
+    console.log(environment[myVar]);
+    const authConfig99 = this.envSelected == '*internal' ? authCodeFlowConfig : (environment[myVar] as AuthConfig);
+    this.oauthService.configure(authConfig99); //authCodeFlowConfig);
     await this.oauthService.loadDiscoveryDocument();
     sessionStorage.setItem('flow', 'code');
 
@@ -79,7 +131,13 @@ export class HomeComponent implements OnInit {
 
   async loginCodeInPopup() {
     // Tweak config for code flow
-    this.oauthService.configure(authCodeFlowConfig);
+
+    type ObjectKey = keyof typeof environment;
+    const myVar = this.envSelected as ObjectKey;
+    console.log(environment[myVar]);
+    const authConfig99 = this.envSelected == '*internal' ? authCodeFlowConfig : (environment[myVar] as AuthConfig);
+    this.oauthService.configure(authConfig99);
+    //this.oauthService.configure(authCodeFlowConfig);
     await this.oauthService.loadDiscoveryDocument();
     sessionStorage.setItem('flow', 'code');
 
@@ -175,4 +233,13 @@ export class HomeComponent implements OnInit {
   get access_token_expiration() {
     return this.oauthService.getAccessTokenExpiration();
   }
+
+  //
+  // helper_getEnvSection(envSelected: string): typeof environment {
+  //   type ObjectKey = keyof typeof environment;
+  //   const myVar = envSelected as ObjectKey;
+  //   console.log(environment[myVar]);
+  //   return environment.myVar; //.authPasswordFlowConfig00; //this.authConfig99; //environment[myVar];
+  // }
+  //
 }

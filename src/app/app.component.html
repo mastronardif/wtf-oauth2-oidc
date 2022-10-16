@@ -6,6 +6,21 @@
     <li class="nav-item">
       <a [routerLink]="['/flight-booking/flight-search']">Book a Flight</a>
     </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Environment ({{envs[envsSel]}})
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li *ngFor="let eee of envs; let ii = index"><a class="dropdown-item"(click)="setEnv(ii);">{{eee}}</a></li>
+
+        <!-- <li><a class="dropdown-item"(click)="setEnv('idsvr4');">idsvr4</a></li>
+        <li><a class="dropdown-item" href="#">philly-vanilly</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">dev-uxby36t5</a></li> -->
+      </ul>
+    </li>
+
   </ul>
 </nav>
 

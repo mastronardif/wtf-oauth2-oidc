@@ -1,6 +1,7 @@
 import { authPasswordFlowConfig } from '../auth-password-flow.config';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { Component, OnInit } from '@angular/core';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-password-flow-login',
@@ -17,11 +18,20 @@ export class PasswordFlowLoginComponent implements OnInit {
     // This is just needed b/c this demo uses both,
     // implicit flow as well as password flow
 
-    this.oauthService.configure(authPasswordFlowConfig);
+    const envSelected = sessionStorage.getItem('envSel');
+    type ObjectKey = keyof typeof environment;
+    const myVar = envSelected as ObjectKey;
+    console.log(environment[myVar]);
+    const authConfig99 = envSelected == '*internal' ? authPasswordFlowConfig : (environment[myVar] as AuthConfig);
+
+    this.oauthService.configure(authConfig99); // authPasswordFlowConfig);
     this.oauthService.loadDiscoveryDocument();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('\t PasswordFlowLoginComponent: ngOnInit()');
+    console.log(environment);
+  }
 
   loadUserProfile(): void {
     this.oauthService.loadUserProfile().then((up) => (this.userProfile = up));
