@@ -2,7 +2,7 @@ import { authConfig } from '../auth.config';
 import { Component, OnInit } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from '../auth-code-flow.config';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { GlobalsrvService } from '../service/globalsrv.service';
 
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   login: false;
 
   private envSelected: string | undefined;
-  constructor(
+  constructor(private router : Router,
     private gs: GlobalsrvService,
     private route: ActivatedRoute,
     private oauthService: OAuthService
@@ -46,6 +46,16 @@ export class HomeComponent implements OnInit {
     type ObjectKey = keyof typeof environment;
     const myVar = this.envSelected as ObjectKey;
     console.log(environment[myVar]);
+
+    //const token = this.route.snapshot.queryParamMap.get('token');
+    this.route.fragment.subscribe((fragment) => {
+      console.log("My hash fragment is here => ", fragment)
+    })
+
+    console.log(this.router.url);
+    const token = this.route.snapshot.queryParamMap.get('access_token');
+    console.log('token =', token);
+
 
     //this.helper_getEnvSection(this.envSelected)
 
@@ -234,12 +244,4 @@ export class HomeComponent implements OnInit {
     return this.oauthService.getAccessTokenExpiration();
   }
 
-  //
-  // helper_getEnvSection(envSelected: string): typeof environment {
-  //   type ObjectKey = keyof typeof environment;
-  //   const myVar = envSelected as ObjectKey;
-  //   console.log(environment[myVar]);
-  //   return environment.myVar; //.authPasswordFlowConfig00; //this.authConfig99; //environment[myVar];
-  // }
-  //
 }

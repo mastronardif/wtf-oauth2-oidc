@@ -143,7 +143,26 @@ authConfig00: {
   clearHashAfterLogin: true,
   showDebugInformation: true,
   oidc: false,
+},
+"oauth2-mock-server": {
+  issuer: 'http://localhost:8080',
+  domain: "http://localhost:8080",
+  audience: "https://WTFdev-uxby36t5.us.auth0.com/api/v2/",
+  ZZresponse_type: 'code',
+
+  customQueryParams: { audience: 'https://dev-uxby36t5.us.auth0.com/api/v2/' },
+  redirectUri: window.location.origin + '/index.html',
+  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
+  clientId: 'aaaa',
+  dummyClientSecret: 'ffff',
+  ClientSecret: 'what',
+  scope: 'openid profile email',
+  clearHashAfterLogin: true,
+  showDebugInformation: true,
+  oidc: false,
 }
+
+
 ////// authConfig (implicit flow) END
 };
 /*

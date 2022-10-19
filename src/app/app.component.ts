@@ -15,12 +15,16 @@ import { GlobalsrvService } from './service/globalsrv.service';
 })
 export class AppComponent {
   title = 'wtf';
-  public envs = ['*internal', 'dev-uxby36t5.us.auth0.com', 'philly-vanilly.auth0.com', 'authConfig','authConfig00','authConfig11', 'idsvr4'];
+  //public envs = ['*internal', 'dev-uxby36t5.us.auth0.com', 'philly-vanilly.auth0.com', 'oauth2-mock-server', 'authConfig','authConfig00','authConfig11', 'idsvr4'];
   public envsSel = 0;
+  public envs = ['*internal']
   //private envSelected = '';
 
   constructor(private gs:GlobalsrvService, private router: Router,  private oauthService: OAuthService) {
     //this.ls.updateLan(this.envs[0]);
+    //const fff = gs.helper_getEnvSectionHeads(environment);
+    //console.log('fff',fff);
+    this.envs.push(...gs.helper_getEnvSectionHeads(environment, ['environment', 'production', 'development']));
     this.setEnv(0);
 
     // alert('app constructor '+ this.envsSel);
