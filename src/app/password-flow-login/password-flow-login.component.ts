@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from "src/environments/environment";
 //import { HttpHeaders } from '@angular/common/http';
 import { FlightService } from '../flight-booking/services/flight.service';
+import { PgService } from '../service/pg/pg.service';
 
 @Component({
   selector: 'app-password-flow-login',
@@ -15,7 +16,7 @@ export class PasswordFlowLoginComponent implements OnInit {
   loginFailed: boolean = false;
   userProfile: object | undefined;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private pg: PgService, private oauthService: OAuthService) {
     // Tweak config for password flow
     // This is just needed b/c this demo uses both,
     // implicit flow as well as password flow
@@ -131,13 +132,9 @@ export class PasswordFlowLoginComponent implements OnInit {
 
   //
   usePG() {
-    const token = this.oauthService.getAccessToken();
-
-    // var value = {from: 'sssss', to: 'ttttt'};
-    // this.flightService.find(value.from, value.to);
-    // console.log('flights = ', this.flightService.flights);
-
-    alert('  usePG() '+ this.oauthService.getAccessToken());
+    this.pg.getSecret().subscribe((data: {}) => {
+      alert(data);
+    });
   }
   //
 }
