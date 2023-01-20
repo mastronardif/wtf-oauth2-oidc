@@ -5,6 +5,7 @@ import { authCodeFlowConfig } from '../auth-code-flow.config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { GlobalsrvService } from '../service/globalsrv.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   templateUrl: './home.component.html',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(private router : Router,
     private gs: GlobalsrvService,
     private route: ActivatedRoute,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
+    private http: HttpClient
   ) {
     this.gs.getEnv().subscribe((env) => {
       this.envSelected = env;
@@ -87,6 +89,15 @@ export class HomeComponent implements OnInit {
             }
         });
     */
+  }
+
+  async pgLogin() {
+    alert('pgLogin');
+    this.http.get('http://localhost:3000/login00').subscribe(data => {
+      console.log('aqaqaqaqaqaqqqaqaqa');
+    });
+
+
   }
 
   async loginImplicit() {

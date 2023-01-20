@@ -147,15 +147,15 @@ authConfig00: {
 "oauth2-mock-server": {
   issuer: 'http://localhost:8080',
   domain: "http://localhost:8080",
-  audience: "https://WTFdev-uxby36t5.us.auth0.com/api/v2/",
-  ZZresponse_type: 'code',
+  //ZZaudience: "https://WTFdev-uxby36t5.us.auth0.com/api/v2/",
+  //response_type: 'code',
 
-  customQueryParams: { audience: 'https://dev-uxby36t5.us.auth0.com/api/v2/' },
+  //ZZcustomQueryParams: { audience: 'https://dev-uxby36t5.us.auth0.com/api/v2/' },
   redirectUri: window.location.origin + '/index.html',
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-  clientId: 'aaaa',
-  dummyClientSecret: 'ffff',
-  ClientSecret: 'what',
+  //clientId: 'aaaa',
+  //dummyClientSecret: 'ffff',
+  //ClientSecret: 'what',
   scope: 'openid profile email',
   clearHashAfterLogin: true,
   showDebugInformation: true,
@@ -180,7 +180,7 @@ authConfig00: {
  // The SPA's id. The SPA is registerd with this id at the auth-server
  clientId: 'express-client',
  dummyClientSecret: 'express-secret',
- //ClientSecret: 'express-secret',
+ ClientSecret: 'express-secret',
  //clientId: 'demo-resource-owner',
  //dummyClientSecret: 'geheim',
 
@@ -200,10 +200,10 @@ authConfig00: {
 "oathapp4000": {
   // Url of the Identity Provider
   issuer: 'http://localhost:4000/',
-  ZZcustomQueryParams: {
-    client_id: "131630161401-tjinjoqp0m7hjcppupur9qlgpjsmql6r.apps.googleusercontent.com",
-    redirect_uri: "http://localhost:4000/api/callback",
-  },
+  // ZZcustomQueryParams: {
+  //   client_id: "131630161401-tjinjoqp0m7hjcppupur9qlgpjsmql6r.apps.googleusercontent.com",
+  //   redirect_uri: "http://localhost:4000/api/callback",
+  // },
 
   // URL of the SPA to redirect the user to after login
   // redirectUri: window.location.origin
@@ -217,7 +217,9 @@ authConfig00: {
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
-  clientId: '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',
+  clientId: '131630161401-tjinjoqp0m7hjcppupur9qlgpjsmql6r.apps.googleusercontent.com',
+  dummyClientSecret: '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',
+
 
   // set the scope for the permissions the client should request
   // The first three are defined by OIDC. The 4th is a usecase-specific one
